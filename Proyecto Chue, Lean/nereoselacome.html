@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Préstamo - Selección de Fechas</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff0000, #b20000); /* Fondo degradado más rojo */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            color: #555;
+        }
+        
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="date"]:focus {
+            border-color: #ff4e50; /* Cambia el borde al rojo cuando se enfoca */
+            outline: none;
+        }
+        
+        .error {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745; /* Botón verde */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #218838; /* Verde más oscuro al hacer hover */
+        }
+
+        button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+
+        /* Ajuste responsivo */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+            
+            button {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Selecciona las fechas del préstamo</h2>
+    
+    <label for="start-date">Fecha de inicio:</label>
+    <input type="date" id="start-date">
+    
+    <label for="end-date">Fecha de fin:</label>
+    <input type="date" id="end-date">
+    
+    <div id="error-message" class="error"></div>
+    
+    <button id="submit-btn" disabled>Confirmar</button>
+</div>
+
+<script>
+    const startDateInput = document.getElementById('start-date');
+    const endDateInput = document.getElementById('end-date');
+    const errorMessage = document.getElementById('error-message');
+    const submitButton = document.getElementById('submit-btn');
+
+    function validateDates() {
+        const startDate = new Date(startDateInput.value);
+        const endDate = new Date(endDateInput.value);
+
+        // Reset error message and disable button
+        errorMessage.textContent = '';
+        submitButton.disabled = true;
+
+        // Check if both dates are selected
+        if (!startDate || !endDate) {
+            return;
+        }
+
+        // Calculate the difference in days
+        const timeDiff = endDate - startDate;
+        const diffInDays = timeDiff / (1000 * 3600 * 24);
+
+        if (diffInDays < 0) {
+            errorMessage.textContent = 'La fecha de fin no puede ser anterior a la fecha de inicio.';
+        } else if (diffInDays > 14) {
+            errorMessage.textContent = 'El periodo no puede superar las dos semanas.';
+        } else {
+            submitButton.disabled = false;
+        }
+    }
+
+    startDateInput.addEventListener('change', validateDates);
+    endDateInput.addEventListener('change', validateDates);
+</script>
+
+</body>
+</html>
