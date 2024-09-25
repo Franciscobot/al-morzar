@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <h2>Inicio de Sesión</h2>
+            <form action="/ingresar" method="POST">
+                <label for="nombre-apellido">Nombre y Apellido:</label>
+                <input type="text" id="nombre-apellido" name="nombre-apellido" required>
+
+                <label for="dni">DNI:</label>
+                <input type="text" id="dni" name="dni" required>
+
+                <label for="curso">Curso:</label>
+                <input type="text" id="curso" name="curso" required>
+
+                <button type="submit" onclick="window.location.href='proyecto2.html'">Ir a otra página</button>
+                
+            </form>
+        </div>
+        <div class="right-side">
+            <img src="/imagenes/escudo.jpg" alt="Escudo Otto Krause" class="school-logo">
+        </div>
+    </div>
+</body>
+</html>
